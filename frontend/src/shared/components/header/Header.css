@@ -25,6 +25,7 @@
 	color: white;
 	font-size: 20px;
 	font-weight: 700;
+	text-transform: capitalize;
 }
 .header__nav-link.active{
 	text-decoration: underline;

@@ -72,6 +72,7 @@ a{
 	text-transform: uppercase;
 	cursor: pointer;
 	transition: 0.3s;
+	border-radius: 5px;
 }
 .btn.danger{
 	border: 2px solid red;
@@ -84,4 +85,10 @@ a{
 .btn.danger:hover{
 	background: white;
 	color: red;
+}
+.error{
+	display: block;
+	padding: 2px 0;
+	color: red;
+	font-size: 14px;
 }

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { createPortal } from "react-dom";
 
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -7,56 +8,76 @@ import {
     deleteTodo,
     updateComplete,
 } from "../../shared/store/slices/todoSlice";
+import ConfirmModal from "../ConfrmModal/ConfirmModal";
 
 const TodoListItem = (props) => {
     const dispatch = useDispatch();
     const [isChecked, setIsChecked] = useState(props.itemData.completed);
     const { itemData } = props;
+    const [isShowModal, setIsShowModal] = useState(false);
+    const [itemToDelete, setItemToDelete] = useState(null);
 
     const deleteHandler = (id) => {
-        dispatch(deleteTodo(id));
-        // apiInstance
-        //     .delete(`/todos/${id}`)
-        //     .then((res) => {
-        //         console.log("Item deleted");
-        //     })
-        //     .then(() => {
-        //         console.log("Some error occured!!!");
-        //     });
+        setItemToDelete(id);
+        setIsShowModal(true);
+        // dispatch(deleteTodo(id));
     };
     const checkChangeHandler = (id) => {
         setIsChecked((prev) => !prev);
         dispatch(updateComplete({ id, payload: { completed: !isChecked } }));
     };
+    const confirmHandler = () => {
+        dispatch(deleteTodo(itemToDelete));
+        setIsShowModal(false);
+    };
+    const cancelHandler = () => {
+        setIsShowModal(false);
+    };
     return (
-        <li className={`home-page__todo-list-item ${isChecked && "completed"}`}>
-            <div className="home-page__header-wrapper">
-                <div className="home-page__check-wrap">
-                    <input
-                        type="checkbox"
-                        checked={isChecked}
-                        onChange={() => checkChangeHandler(itemData._id)}
-                    />
+        <>
+            <li
+                className={`home-page__todo-list-item ${
+                    isChecked && "completed"
+                }`}
+            >
+                <div className="home-page__header-wrapper">
+                    <div className="home-page__check-wrap">
+                        <input
+                            type="checkbox"
+                            checked={isChecked}
+                            onChange={() => checkChangeHandler(itemData._id)}
+                        />
+                    </div>
+                    <h3 className="home-page__list-heading">
+                        {itemData.title}
+                    </h3>
                 </div>
-                <h3 className="home-page__list-heading">{itemData.title}</h3>
-            </div>
-            {itemData.description && (
-                <p className="home-page__list-description">
-                    {itemData.description}
-                </p>
-            )}
-            <div className="home-page__cta-btns">
-                <Link className="btn" to={`/edit-todo/${itemData._id}`}>
-                    Edit
-                </Link>
-                <button
-                    className="btn danger"
-                    onClick={() => deleteHandler(itemData._id)}
-                >
-                    delete
-                </button>
-            </div>
-        </li>
+                {itemData.description && (
+                    <p className="home-page__list-description">
+                        {itemData.description}
+                    </p>
+                )}
+                <div className="home-page__cta-btns">
+                    <Link className="btn" to={`/edit-todo/${itemData._id}`}>
+                        Edit
+                    </Link>
+                    <button
+                        className="btn danger"
+                        onClick={() => deleteHandler(itemData._id)}
+                    >
+                        delete
+                    </button>
+                </div>
+            </li>
+            {isShowModal &&
+                createPortal(
+                    <ConfirmModal
+                        onConfirm={confirmHandler}
+                        onCancel={cancelHandler}
+                    />,
+                    document.getElementById("modal-hook")
+                )}
+        </>
     );
 };
 
