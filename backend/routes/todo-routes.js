@@ -14,4 +14,6 @@ router.delete("/:tid", todoControllers.deleteTodoById);
 
 router.patch("/:tid", todoControllers.updateTodoById);
 
+router.patch("/update-complete/:tid", todoControllers.updateTodoCompleted);
+
 module.exports = router;

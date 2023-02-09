@@ -86,9 +86,31 @@ const updateTodoById = async (req, res, next) => {
     const result = await Todo.updateOne({ _id: todoId }, updatedTodo);
     res.json({ message: "Todo updated.", data: result });
 };
+const updateTodoCompleted = async (req, res, next) => {
+    const todoId = req.params.tid;
+    const isCompleted = req.body.completed;
+
+    const existingTodo = await Todo.findById(todoId).exec();
+    if (!existingTodo) {
+        const error = new HttpError("Todo not found for provided id.", 404);
+        return next(error);
+    }
+
+    // if (!isCompleted) {
+    //     const error = new HttpError("Please provide completed(key).", 422);
+    //     return next(error);
+    // }
+
+    const result = await Todo.updateOne(
+        { _id: todoId },
+        { completed: isCompleted }
+    );
+    res.json({ message: "Todo updated.", data: result });
+};
 
 exports.getAllTodoItem = getAllTodoItem;
 exports.getTodoById = getTodoById;
 exports.addTodoItem = addTodoItem;
 exports.deleteTodoById = deleteTodoById;
 exports.updateTodoById = updateTodoById;
+exports.updateTodoCompleted = updateTodoCompleted;

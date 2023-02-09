@@ -1,8 +1,8 @@
 import { createBrowserRouter } from "react-router-dom";
 
 import MainLayout from "../shared/layouts/MainLayout";
-import HomePage from "../pages/HomePage";
-import AddTodo from "../pages/AddTodo";
+import HomePage from "../pages/homePage/HomePage";
+import AddTodo from "../pages/addTodo/AddTodo";
 
 const routes = createBrowserRouter([
     {

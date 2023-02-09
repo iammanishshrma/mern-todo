@@ -3,11 +3,14 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-import { apiInstance } from "../../shared/utils/api";
-import { getTodo, deleteTodo } from "../../shared/store/slices/todoSlice";
+import {
+    deleteTodo,
+    updateComplete,
+} from "../../shared/store/slices/todoSlice";
 
 const TodoListItem = (props) => {
     const dispatch = useDispatch();
+    const [isChecked, setIsChecked] = useState(props.itemData.completed);
     const { itemData } = props;
 
     const deleteHandler = (id) => {
@@ -21,11 +24,38 @@ const TodoListItem = (props) => {
         //         console.log("Some error occured!!!");
         //     });
     };
+    const checkChangeHandler = (id) => {
+        setIsChecked((prev) => !prev);
+        dispatch(updateComplete({ id, payload: { completed: !isChecked } }));
+    };
     return (
-        <li>
-            {itemData.title}
-            <button onClick={() => deleteHandler(itemData._id)}>delete</button>
-            <Link to={`/edit-todo/${itemData._id}`}>edit</Link>
+        <li className={`home-page__todo-list-item ${isChecked && "completed"}`}>
+            <div className="home-page__header-wrapper">
+                <div className="home-page__check-wrap">
+                    <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={() => checkChangeHandler(itemData._id)}
+                    />
+                </div>
+                <h3 className="home-page__list-heading">{itemData.title}</h3>
+            </div>
+            {itemData.description && (
+                <p className="home-page__list-description">
+                    {itemData.description}
+                </p>
+            )}
+            <div className="home-page__cta-btns">
+                <Link className="btn" to={`/edit-todo/${itemData._id}`}>
+                    Edit
+                </Link>
+                <button
+                    className="btn danger"
+                    onClick={() => deleteHandler(itemData._id)}
+                >
+                    delete
+                </button>
+            </div>
         </li>
     );
 };

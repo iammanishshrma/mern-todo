@@ -4,7 +4,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { apiInstance } from "../shared/utils/api";
+
+import { apiInstance } from "../../shared/utils/api";
+import "./AddTodo.css";
 
 const SCHEMA = yup.object({
     title: yup.string().required("Please enter title"),
@@ -64,29 +66,35 @@ const AddTodo = () => {
             });
     };
     return (
-        <div>
-            <h1>{id ? "Edit" : "Add"} todo</h1>
+        <section className="add-todo">
+            <h1 className="add-todo__heading">{id ? "Edit" : "Add"} todo</h1>
             <form onSubmit={handleSubmit(submitHandler)}>
-                <div>
-                    <label htmlFor="title">Title</label>
-                    <input {...register("title")} type="text" id="title" />
-                    {errors.title && (
-                        <span className="error">{errors.title.message}</span>
-                    )}
-                </div>
-                <div>
-                    <label htmlFor="description">Description</label>
-                    <textarea
-                        {...register("description")}
-                        type="text"
-                        id="description"
-                    />
-                </div>
-                <div>
-                    <button type="submit">{id ? "Save" : "Add Todo"} </button>
+                <div className="add-todo__form">
+                    <div className="add-todo__input-wrap">
+                        <label htmlFor="title">Title</label>
+                        <input {...register("title")} type="text" id="title" />
+                        {errors.title && (
+                            <span className="error">
+                                {errors.title.message}
+                            </span>
+                        )}
+                    </div>
+                    <div className="add-todo__input-wrap">
+                        <label htmlFor="description">Description</label>
+                        <textarea
+                            {...register("description")}
+                            type="text"
+                            id="description"
+                        />
+                    </div>
+                    <div className="add-todo__cta-wrap">
+                        <button className="btn" type="submit">
+                            {id ? "Save" : "Add Todo"}{" "}
+                        </button>
+                    </div>
                 </div>
             </form>
-        </div>
+        </section>
     );
 };
 

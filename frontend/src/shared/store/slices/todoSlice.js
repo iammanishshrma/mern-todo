@@ -31,7 +31,34 @@ export const deleteTodo = createAsyncThunk(
         return dispatch(getTodo());
     }
 );
+export const updateComplete = createAsyncThunk(
+    "/updateComplete",
+    async ({ id, payload }, { dispatch }) => {
+        await apiInstance
+            .patch(`/todos/update-complete/${id}`, payload)
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log("Error");
+            });
+    }
+);
 
+export const updateTodo = createAsyncThunk(
+    "/deleteTodo",
+    async ({ id, payload }, { dispatch }) => {
+        await apiInstance
+            .patch(`/todos/${id}`, payload)
+            .then((res) => {
+                console.log(res.data);
+            })
+            .catch((err) => {
+                console.log("Error");
+            });
+        return dispatch(getTodo());
+    }
+);
 const todoSlice = createSlice({
     name: "todo",
     initialState,
@@ -39,7 +66,6 @@ const todoSlice = createSlice({
     extraReducers: (builder) => {
         builder.addCase(getTodo.pending, (state, action) => {});
         builder.addCase(getTodo.fulfilled, (state, action) => {
-            console.log("todoSlice", action);
             state.todos = action.payload.todos;
         });
         builder.addCase(getTodo.rejected, (state, action) => {});
