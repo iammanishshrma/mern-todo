@@ -22,6 +22,8 @@
 	max-width: 700px;
 	margin: 0 auto 20px;
 	transition: 0.3s;
+	position: relative;
+	overflow: hidden;
 }
 .home-page__todo-list-item.completed{
 	opacity: 0.5;
@@ -39,4 +41,12 @@
 }
 .home-page__cta-btns .btn{
 	margin-right: 10px;
+}
+.complete-tag{
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 5px 10px;
+	background: black;
+	color: white;
 }

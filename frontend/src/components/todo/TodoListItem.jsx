@@ -18,6 +18,8 @@ const TodoListItem = (props) => {
     const [itemToDelete, setItemToDelete] = useState(null);
 
     const deleteHandler = (id) => {
+        const ele = document.getElementsByTagName("body")[0];
+        ele.style.overflow = "hidden";
         setItemToDelete(id);
         setIsShowModal(true);
         // dispatch(deleteTodo(id));
@@ -32,7 +34,10 @@ const TodoListItem = (props) => {
     };
     const cancelHandler = () => {
         setIsShowModal(false);
+        const ele = document.getElementsByTagName("body")[0];
+        ele.style.overflow = "auto";
     };
+
     return (
         <>
             <li
@@ -40,6 +45,7 @@ const TodoListItem = (props) => {
                     isChecked && "completed"
                 }`}
             >
+                {isChecked && <span className="complete-tag">Completed</span>}
                 <div className="home-page__header-wrapper">
                     <div className="home-page__check-wrap">
                         <input
@@ -58,7 +64,10 @@ const TodoListItem = (props) => {
                     </p>
                 )}
                 <div className="home-page__cta-btns">
-                    <Link className="btn" to={`/edit-todo/${itemData._id}`}>
+                    <Link
+                        className="btn"
+                        to={isChecked ? "/" : `/edit-todo/${itemData._id}`}
+                    >
                         Edit
                     </Link>
                     <button
