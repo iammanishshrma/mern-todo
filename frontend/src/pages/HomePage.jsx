@@ -1,39 +1,19 @@
 import React, { useState, useEffect } from "react";
 
 import TodoList from "../components/todo/TodoList";
-import { apiInstance } from "../shared/utils/api";
-
-const DUMMY_TODO = [
-    {
-        title: "a book",
-        id: "t1",
-        createdAt: new Date(),
-    },
-    {
-        title: "a phone",
-        id: "t2",
-        createdAt: new Date(),
-    },
-    {
-        title: "a bike",
-        id: "t3",
-        createdAt: new Date(),
-    },
-];
+import { useSelector, useDispatch } from "react-redux";
+import { getTodo } from "../shared/store/slices/todoSlice";
 
 const HomePage = () => {
-    const [todoList, setTodoList] = useState(null);
+    const todoList = useSelector((state) => state.todoList.todos);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        apiInstance
-            .get("/todos")
-            .then((res) => {
-                setTodoList(res.data.todos);
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }, []);
+        dispatch(getTodo());
+    }, [dispatch]);
+
+    console.log("todolist", todoList);
+
     if (!todoList) {
         return <h1>Loading...</h1>;
     }

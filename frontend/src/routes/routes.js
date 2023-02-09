@@ -17,6 +17,10 @@ const routes = createBrowserRouter([
                 path: "/add-todo",
                 element: <AddTodo />,
             },
+            {
+                path: "/edit-todo/:id",
+                element: <AddTodo />,
+            },
         ],
     },
 ]);

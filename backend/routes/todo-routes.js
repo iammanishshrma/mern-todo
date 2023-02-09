@@ -6,6 +6,8 @@ const router = express.Router();
 
 router.get("/", todoControllers.getAllTodoItem);
 
+router.get("/:tid", todoControllers.getTodoById);
+
 router.post("/add-todo", todoControllers.addTodoItem);
 
 router.delete("/:tid", todoControllers.deleteTodoById);

@@ -7,21 +7,25 @@ const getAllTodoItem = async (req, res, next) => {
     res.json({ todos });
 };
 
+const getTodoById = async (req, res, next) => {
+    const todoId = req.params.tid;
+    let existingTodo;
+    try {
+        existingTodo = await Todo.findById(todoId).exec();
+        res.json(existingTodo);
+    } catch (err) {
+        const error = new HttpError("Invalid id", 422);
+        return next(error);
+    }
+};
+
 const addTodoItem = async (req, res, next) => {
     const title = req.body.title;
-    const description = req.body.description;
+    const description = req.body.description || "";
     const completed = req.body.completed || false;
 
-    if (
-        !title ||
-        title.length === 0 ||
-        !description ||
-        description.length === 0
-    ) {
-        const error = new HttpError(
-            "Please provide title and description.",
-            422
-        );
+    if (!title || title.length === 0) {
+        const error = new HttpError("Please provide title.", 422);
         return next(error);
     }
     const createdTodo = new Todo({
@@ -38,7 +42,13 @@ const addTodoItem = async (req, res, next) => {
 const deleteTodoById = async (req, res, next) => {
     const todoId = req.params.tid;
 
+    if (typeof todoId !== "string" || todoId.length < 1) {
+        const error = new HttpError("Please provide proper id.", 422);
+        return next(error);
+    }
+
     const existingTodo = await Todo.findById(todoId).exec();
+
     if (!existingTodo) {
         const error = new HttpError("Todo not found for provided id.", 404);
         return next(error);
@@ -78,6 +88,7 @@ const updateTodoById = async (req, res, next) => {
 };
 
 exports.getAllTodoItem = getAllTodoItem;
+exports.getTodoById = getTodoById;
 exports.addTodoItem = addTodoItem;
 exports.deleteTodoById = deleteTodoById;
 exports.updateTodoById = updateTodoById;
