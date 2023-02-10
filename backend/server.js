@@ -9,7 +9,7 @@ const HttpError = require("./models/http-error");
 const app = express();
 const PORT = 8080;
 const dbUrl =
-    "mongodb+srv://manish:manish@cluster0.ijw3zif.mongodb.net/?retryWrites=true&w=majority";
+    "mongodb+srv://manish:manish@cluster0.ijw3zif.mongodb.net/todos?retryWrites=true&w=majority";
 
 mongoose
     .connect(dbUrl)

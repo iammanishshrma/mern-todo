@@ -30,7 +30,7 @@ const addTodoItem = async (req, res, next) => {
     }
     const createdTodo = new Todo({
         title,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
         description,
         completed,
     });
@@ -60,9 +60,12 @@ const deleteTodoById = async (req, res, next) => {
 
 const updateTodoById = async (req, res, next) => {
     const todoId = req.params.tid;
-    const title = req.body.title;
-    const description = req.body.description;
-    const updatedTodo = { title, description, createdAt: new Date() };
+    const { title, description } = req.body;
+    const updatedTodo = {
+        title,
+        description,
+        createdAt: new Date().toISOString(),
+    };
 
     const existingTodo = await Todo.findById(todoId).exec();
     if (!existingTodo) {
