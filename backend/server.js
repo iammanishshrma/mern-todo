@@ -2,14 +2,14 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const cors = require("cors");
+require("dotenv").config();
 
 const todoRoutes = require("./routes/todo-routes");
 const HttpError = require("./models/http-error");
 
 const app = express();
 const PORT = 8080;
-const dbUrl =
-    "mongodb+srv://manish:manish@cluster0.ijw3zif.mongodb.net/todos?retryWrites=true&w=majority";
+const dbUrl = process.env.DB_URL;
 
 mongoose
     .connect(dbUrl)
