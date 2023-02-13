@@ -5,6 +5,7 @@ const cors = require("cors");
 require("dotenv").config();
 
 const todoRoutes = require("./routes/todo-routes");
+const userRoutes = require("./routes/user-routes");
 const HttpError = require("./models/http-error");
 
 const app = express();
@@ -23,6 +24,8 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/api/todos", todoRoutes);
+
+app.use("/api/user", userRoutes);
 
 app.use((req, res, next) => {
     const error = new HttpError("Provide route not found!!!", 404);
