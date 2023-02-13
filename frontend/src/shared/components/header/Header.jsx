@@ -1,10 +1,20 @@
 import React from "react";
 
 import { NavLink, Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+
+import { logout } from "../../store/slices/userSlice";
 
 import "./Header.css";
 
 const Header = () => {
+    const isLoggedIn = useSelector((state) => state.userData.isLoggedIn);
+    const dispatch = useDispatch();
+
+    const logoutHandler = () => {
+        dispatch(logout());
+    };
+
     return (
         <header className="header">
             <div className="container">
@@ -28,11 +38,19 @@ const Header = () => {
                                 Add todo
                             </NavLink>
                         </li>
-                        <li className="header__nav-item">
-                            <NavLink className="header__nav-link" to="/login">
-                                Authenticate
-                            </NavLink>
-                        </li>
+                        {!isLoggedIn && (
+                            <li className="header__nav-item">
+                                <NavLink
+                                    className="header__nav-link"
+                                    to="/login"
+                                >
+                                    Authenticate
+                                </NavLink>
+                            </li>
+                        )}
+                        {isLoggedIn && (
+                            <button onClick={logoutHandler}>Logout</button>
+                        )}
                     </ul>
                 </nav>
             </div>
