@@ -8,7 +8,7 @@ export const login = createAsyncThunk("/login", async (payload, thunkAPI) => {
     return apiInstance
         .post("/user/login", payload)
         .then((res) => {
-            return thunkAPI.fulfillWithValue(res);
+            return res;
         })
         .catch((error) => {
             return thunkAPI.rejectWithValue(error);
@@ -22,12 +22,12 @@ const userSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: (builder) => {
-        builder.addCase(login.fulfilled, (action, state) => {
+        builder.addCase(login.fulfilled, (state, action) => {
             console.log("action", action.payload);
             state = action.payload;
             return state;
         });
-        builder.addCase(login.rejected, (action, state) => {
+        builder.addCase(login.rejected, (state, action) => {
             state = action.payload;
             return state;
         });
