@@ -6,6 +6,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
 import { apiInstance } from "../../shared/utils/api";
+import Card from "../../shared/components/uiElements/card/Card";
 import "./AddTodo.css";
 
 const SCHEMA = yup.object({
@@ -68,32 +69,38 @@ const AddTodo = () => {
     return (
         <section className="add-todo">
             <h1 className="add-todo__heading">{id ? "Edit" : "Add"} todo</h1>
-            <form onSubmit={handleSubmit(submitHandler)}>
-                <div className="add-todo__form">
-                    <div className="add-todo__input-wrap">
-                        <label htmlFor="title">Title</label>
-                        <input {...register("title")} type="text" id="title" />
-                        {errors.title && (
-                            <span className="error">
-                                {errors.title.message}
-                            </span>
-                        )}
+            <Card style={{ maxWidth: "350px" }}>
+                <form onSubmit={handleSubmit(submitHandler)}>
+                    <div className="add-todo__form">
+                        <div className="add-todo__input-wrap">
+                            <label htmlFor="title">Title</label>
+                            <input
+                                {...register("title")}
+                                type="text"
+                                id="title"
+                            />
+                            {errors.title && (
+                                <span className="error">
+                                    {errors.title.message}
+                                </span>
+                            )}
+                        </div>
+                        <div className="add-todo__input-wrap">
+                            <label htmlFor="description">Description</label>
+                            <textarea
+                                {...register("description")}
+                                type="text"
+                                id="description"
+                            />
+                        </div>
+                        <div className="add-todo__cta-wrap">
+                            <button className="btn" type="submit">
+                                {id ? "Save" : "Add Todo"}{" "}
+                            </button>
+                        </div>
                     </div>
-                    <div className="add-todo__input-wrap">
-                        <label htmlFor="description">Description</label>
-                        <textarea
-                            {...register("description")}
-                            type="text"
-                            id="description"
-                        />
-                    </div>
-                    <div className="add-todo__cta-wrap">
-                        <button className="btn" type="submit">
-                            {id ? "Save" : "Add Todo"}{" "}
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </Card>
         </section>
     );
 };

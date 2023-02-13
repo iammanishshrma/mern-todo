@@ -7,6 +7,7 @@ import * as yup from "yup";
 
 import Input from "../../shared/components/uiElements/input/Input";
 import Card from "../../shared/components/uiElements/card/Card";
+import { apiInstance } from "../../shared/utils/api";
 import "./Auth.css";
 
 const SCHEMA = yup.object({
@@ -39,6 +40,13 @@ const SignUp = () => {
     });
 
     const signUpHandler = (data) => {
+        delete data.cPassword;
+        apiInstance
+            .post("/user/signup", data)
+            .then((res) => console.log(res))
+            .catch((error) => {
+                console.log(error);
+            });
         console.log("signUpData", data);
     };
     return (

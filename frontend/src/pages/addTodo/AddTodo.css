@@ -8,15 +8,6 @@
 	margin-bottom: 25px;
 	text-align: center;
 }
-.add-todo__form{
-	border: 1px solid rgba(0, 0, 0, 0.342);
-	padding: 20px;
-	box-shadow: 0 0 10px black;
-	border-radius: 5px;
-	max-width: 350px;
-	margin: 0 auto 20px;
-	transition: 0.3s;
-}
 .add-todo__input-wrap {
 	margin-bottom: 20px;
 }
@@ -32,7 +23,7 @@
 	border: 1px solid black;
 	padding: 5px 10px;
 	border-radius: 5px;
-	box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
 
 .add-todo__cta-wrap{

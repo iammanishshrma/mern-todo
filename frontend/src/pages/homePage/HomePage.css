@@ -15,9 +15,8 @@
 	text-align: center;
 }
 .home-page__todo-list-item{
-	border: 1px solid rgba(0, 0, 0, 0.342);
 	padding: 20px;
-	box-shadow: 0 0 10px black;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 	border-radius: 5px;
 	max-width: 700px;
 	margin: 0 auto 20px;

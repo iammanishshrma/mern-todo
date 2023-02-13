@@ -8,13 +8,14 @@ import * as yup from "yup";
 import Input from "../../shared/components/uiElements/input/Input";
 import Card from "../../shared/components/uiElements/card/Card";
 import "./Auth.css";
+import { apiInstance } from "../../shared/utils/api";
 
 const SCHEMA = yup.object({
     email: yup
         .string()
         .email("Please enter a valid email.")
         .required("Email is required."),
-    password: yup.string().required("Please enter password.").min(8),
+    password: yup.string().required("Please enter password."),
 });
 
 const LogIn = () => {
@@ -29,14 +30,21 @@ const LogIn = () => {
         resolver: yupResolver(SCHEMA),
     });
 
-    const signUpHandler = (data) => {
-        console.log("logInData", data);
+    const loginHandler = (data) => {
+        apiInstance
+            .post("/user/login", data)
+            .then((res) => {
+                console.log(res);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
     return (
         <Card style={{ marginTop: "50px", maxWidth: "500px" }}>
             <h1 className="auth-heading">Login</h1>
             <div className="login-form">
-                <form onSubmit={handleSubmit(signUpHandler)}>
+                <form onSubmit={handleSubmit(loginHandler)}>
                     <Input
                         ref={emailRef}
                         id="email"
@@ -47,16 +55,19 @@ const LogIn = () => {
                         isError={errors.email}
                         errorMessage={errors.email?.message}
                     />
-                    <Input
-                        ref={passwordRef}
-                        id="password"
-                        title="Password"
-                        type="password"
-                        register={register}
-                        inputName="password"
-                        isError={errors.password}
-                        errorMessage={errors.password?.message}
-                    />
+                    <div>
+                        <Input
+                            ref={passwordRef}
+                            id="password"
+                            title="Password"
+                            type="password"
+                            register={register}
+                            inputName="password"
+                            isError={errors.password}
+                            errorMessage={errors.password?.message}
+                        />
+                        <span>{/* <Link to></Link> */}</span>
+                    </div>
                     <div className="btn-wrap">
                         <button type="submit" className="btn">
                             Login

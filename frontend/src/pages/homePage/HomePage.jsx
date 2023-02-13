@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
 
 import TodoList from "../../components/todo/TodoList";
-import { useSelector, useDispatch } from "react-redux";
 import { getTodo } from "../../shared/store/slices/todoSlice";
 import "./HomePage.css";
 

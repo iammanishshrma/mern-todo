@@ -28,6 +28,11 @@ const Header = () => {
                                 Add todo
                             </NavLink>
                         </li>
+                        <li className="header__nav-item">
+                            <NavLink className="header__nav-link" to="/login">
+                                Authenticate
+                            </NavLink>
+                        </li>
                     </ul>
                 </nav>
             </div>
