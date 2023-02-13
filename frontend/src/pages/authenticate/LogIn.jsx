@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { useDispatch } from "react-redux";
 
 import Input from "../../shared/components/uiElements/input/Input";
 import Card from "../../shared/components/uiElements/card/Card";
+import { login } from "../../shared/store/slices/userSlice";
 import "./Auth.css";
-import { apiInstance } from "../../shared/utils/api";
 
 const SCHEMA = yup.object({
     email: yup
@@ -21,6 +22,7 @@ const SCHEMA = yup.object({
 const LogIn = () => {
     const emailRef = useRef();
     const passwordRef = useRef();
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -31,15 +33,17 @@ const LogIn = () => {
     });
 
     const loginHandler = (data) => {
-        apiInstance
-            .post("/user/login", data)
-            .then((res) => {
-                console.log(res);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        // apiInstance
+        //     .post("/user/login", data)
+        //     .then((res) => {
+        //         console.log(res);
+        //     })
+        //     .catch((error) => {
+        //         console.log(error);
+        //     });
+        dispatch(login(data));
     };
+
     return (
         <Card style={{ marginTop: "50px", maxWidth: "500px" }}>
             <h1 className="auth-heading">Login</h1>

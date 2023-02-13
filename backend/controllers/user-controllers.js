@@ -1,4 +1,5 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const HttpError = require("../models/http-error");
 const User = require("../models/user-modal");
@@ -22,8 +23,7 @@ const signUp = async (req, res, next) => {
 const login = async (req, res, next) => {
     const { email, password } = req.body;
     const existingUser = await User.findOne({ email }).exec();
-    console.log(email);
-    console.log(existingUser);
+
     if (!existingUser) {
         const error = new HttpError(
             "User does not exists with this email!!!",
@@ -32,11 +32,24 @@ const login = async (req, res, next) => {
         return next(error);
     }
 
+    const token = jwt.sign(
+        {
+            id: existingUser._id,
+            email: existingUser.email,
+            name: existingUser.name,
+        },
+        process.env.JWT_KEY
+    );
+
     const result = await bcrypt.compare(password, existingUser.password);
     if (result) {
-        res.json({ message: "Logged in" });
+        res.json({
+            message: "Logged in",
+            token,
+            userData: { name: existingUser.name, email: existingUser.email },
+        });
     } else {
-        res.json({ message: "Password not correct" });
+        res.status(409).json({ message: "Password not correct" });
     }
 };
 
