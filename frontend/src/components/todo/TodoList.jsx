@@ -9,6 +9,9 @@ const TodoList = (props) => {
             {todoList.map((item) => (
                 <TodoListItem key={item._id} itemData={item} />
             ))}
+            {todoList.length === 0 && (
+                <p style={{ textAlign: "center" }}>No todos found!!!</p>
+            )}
         </ul>
     );
 };

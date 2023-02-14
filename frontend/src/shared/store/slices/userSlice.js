@@ -19,24 +19,20 @@ export const login = createAsyncThunk("/login", async (payload, thunkAPI) => {
         });
 });
 
-const signUp = () => {};
-
 const userSlice = createSlice({
     name: "userData",
     initialState,
     reducers: {
         logout: (state, action) => {
-            state.token = null;
-            state.isLoggedIn = false;
             localStorage.removeItem("token");
+            window.location.href = "/";
         },
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
-            console.log("action", action.payload);
+            localStorage.setItem("token", action.payload.token);
             state.isLoggedIn = action.payload.token ? true : false;
             state.token = action.payload.token;
-            localStorage.setItem("token", action.payload.token);
         });
         builder.addCase(login.rejected, (state, action) => {
             state = action.payload;

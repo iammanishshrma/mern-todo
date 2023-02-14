@@ -5,6 +5,8 @@ import HomePage from "../pages/homePage/HomePage";
 import AddTodo from "../pages/addTodo/AddTodo";
 import SignUp from "../pages/authenticate/SignUp";
 import LogIn from "../pages/authenticate/LogIn";
+import AuthRoute from "./AuthRoute";
+import ProtectedRoute from "./ProtectedRoute";
 
 const routes = createBrowserRouter([
     {
@@ -17,19 +19,35 @@ const routes = createBrowserRouter([
             },
             {
                 path: "/add-todo",
-                element: <AddTodo />,
+                element: (
+                    <ProtectedRoute to="/add-todo">
+                        <AddTodo />,
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: "/edit-todo/:id",
-                element: <AddTodo />,
+                element: (
+                    <ProtectedRoute to="/edit-todo/:id">
+                        <AddTodo />,
+                    </ProtectedRoute>
+                ),
             },
             {
                 path: "/signup",
-                element: <SignUp />,
+                element: (
+                    <AuthRoute>
+                        <SignUp />
+                    </AuthRoute>
+                ),
             },
             {
                 path: "/login",
-                element: <LogIn />,
+                element: (
+                    <AuthRoute>
+                        <LogIn />,
+                    </AuthRoute>
+                ),
             },
         ],
     },

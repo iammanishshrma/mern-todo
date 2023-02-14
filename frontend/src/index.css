@@ -74,6 +74,12 @@ a{
 	transition: 0.3s;
 	border-radius: 5px;
 }
+.btn.inverse{
+	border: 2px solid white;
+	padding: 10px 20px;
+	background: white;
+	color: black;
+}
 .btn.danger{
 	border: 2px solid red;
 	background: red;

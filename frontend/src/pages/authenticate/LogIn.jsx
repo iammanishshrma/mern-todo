@@ -33,14 +33,6 @@ const LogIn = () => {
     });
 
     const loginHandler = (data) => {
-        // apiInstance
-        //     .post("/user/login", data)
-        //     .then((res) => {
-        //         console.log(res);
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
         dispatch(login(data));
     };
 

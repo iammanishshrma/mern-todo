@@ -49,7 +49,12 @@ const Header = () => {
                             </li>
                         )}
                         {isLoggedIn && (
-                            <button onClick={logoutHandler}>Logout</button>
+                            <button
+                                className="btn inverse"
+                                onClick={logoutHandler}
+                            >
+                                Logout
+                            </button>
                         )}
                     </ul>
                 </nav>

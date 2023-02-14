@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import TodoList from "../../components/todo/TodoList";
-import { getTodo } from "../../shared/store/slices/todoSlice";
+import { getTodo, clearTodo } from "../../shared/store/slices/todoSlice";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -12,10 +12,26 @@ const HomePage = () => {
 
     useEffect(() => {
         dispatch(getTodo());
+
+        return () => {
+            dispatch(clearTodo());
+        };
     }, [dispatch]);
 
+    console.log(todoList);
+
     if (!todoList) {
-        return <h1>Loading...</h1>;
+        return (
+            <h1
+                style={{
+                    textAlign: "center",
+                    marginTop: "40px",
+                    fontSize: "20px",
+                }}
+            >
+                Please login and add todos
+            </h1>
+        );
     }
     return (
         <section className="home-page">

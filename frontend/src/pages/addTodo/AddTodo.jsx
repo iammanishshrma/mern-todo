@@ -33,6 +33,7 @@ const AddTodo = () => {
             apiInstance
                 .get(`/todos/${id}`)
                 .then((res) => {
+                    console.log("response", res);
                     setExistingTodoId(res.data._id);
                     setValue("title", res.data.title);
                     setValue("description", res.data.description);

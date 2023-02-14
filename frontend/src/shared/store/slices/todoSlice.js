@@ -62,7 +62,11 @@ export const updateTodo = createAsyncThunk(
 const todoSlice = createSlice({
     name: "todo",
     initialState,
-    reducers: {},
+    reducers: {
+        clearTodo: (state, action) => {
+            state.todos = null;
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(getTodo.pending, (state, action) => {});
         builder.addCase(getTodo.fulfilled, (state, action) => {
@@ -73,3 +77,4 @@ const todoSlice = createSlice({
 });
 
 export default todoSlice.reducer;
+export const { clearTodo } = todoSlice.actions;

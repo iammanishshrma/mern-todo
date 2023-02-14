@@ -5,6 +5,7 @@ const Todo = mongoose.Schema({
     description: { type: String, required: false },
     createdAt: { type: String, required: true },
     completed: { type: Boolean, required: true },
+    creatorId: { type: String, required: true },
 });
 
 module.exports = mongoose.model("Todos", Todo);

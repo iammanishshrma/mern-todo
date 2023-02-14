@@ -7,6 +7,7 @@ require("dotenv").config();
 const todoRoutes = require("./routes/todo-routes");
 const userRoutes = require("./routes/user-routes");
 const HttpError = require("./models/http-error");
+const { urlencoded } = require("body-parser");
 
 const app = express();
 const PORT = 8080;
@@ -22,6 +23,11 @@ mongoose
 app.use(cors());
 
 app.use(bodyParser.json());
+app.use(
+    urlencoded({
+        extended: true,
+    })
+);
 
 app.use("/api/todos", todoRoutes);
 

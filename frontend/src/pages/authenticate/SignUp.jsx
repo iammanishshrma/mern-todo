@@ -47,7 +47,6 @@ const SignUp = () => {
             .catch((error) => {
                 console.log(error);
             });
-        console.log("signUpData", data);
     };
     return (
         <Card style={{ marginTop: "50px", maxWidth: "500px" }}>
