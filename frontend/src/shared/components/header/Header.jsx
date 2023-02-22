@@ -38,6 +38,11 @@ const Header = () => {
                                 Add todo
                             </NavLink>
                         </li>
+                        <li className="header__nav-item">
+                            <NavLink className="header__nav-link" to="/profile">
+                                Profile
+                            </NavLink>
+                        </li>
                         {!isLoggedIn && (
                             <li className="header__nav-item">
                                 <NavLink

@@ -34,6 +34,14 @@ const routes = createBrowserRouter([
                 ),
             },
             {
+                path: "/profile",
+                element: (
+                    <ProtectedRoute to="/profile">
+                        <h1>Profile</h1>,
+                    </ProtectedRoute>
+                ),
+            },
+            {
                 path: "/signup",
                 element: (
                     <AuthRoute>

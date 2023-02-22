@@ -11,7 +11,7 @@ const { urlencoded } = require("body-parser");
 
 const app = express();
 const PORT = 8080;
-const dbUrl = process.env.DB_URL;
+const dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.ijw3zif.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`;
 
 mongoose
     .connect(dbUrl)
